@@ -2,7 +2,8 @@ package pageobjects;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import selenium.Helper;
 
@@ -23,6 +24,15 @@ public class BaseClass {
 	{
 		Helper.waitForWebElementUsingXPATH(driver, xpath, 20).click();
 	
+	}
+	
+	public void mouseOver(String mouseElement)
+	{
+		WebElement element = driver.findElement(By.xpath(mouseElement));
+		 
+        Actions action = new Actions(driver);
+ 
+        action.moveToElement(element).build().perform();
 	}
 	
 	public String getTextByXpath(String xpath)

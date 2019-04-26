@@ -21,11 +21,11 @@
 	},
 	{
 		"username": "praveen1423",
-		"password": "wordpress",
-		"firstName": "Virender",
-		"lastName": "Singh",
+		"password": "admin",
+		"firstName": "ishan",
+		"lastName": "dandu",
 		"age": 35,
-		"emailAddress": "Virender@Gmail.com",
+		"emailAddress": "praveen.mydreams@gmail.com",
 		"address": {
 			"streetAddress": "Palam Vihar",
 			"city": "Gurgaon",

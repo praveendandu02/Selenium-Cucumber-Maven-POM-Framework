@@ -34,7 +34,7 @@ public class LoginPage{
 	public String readerPageTitle = "Following ‹ Reader — WordPress.com";
 	
 	public void navigateTo_HomePage() {
-		driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
+		driver.get(FileReaderManager.getInstance().getConfigReader().getWordPressApplicationUrl());
 	}
 	
 	public void loginOperation(Customer customer)

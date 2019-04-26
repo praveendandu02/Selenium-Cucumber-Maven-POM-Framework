@@ -48,8 +48,14 @@ public class ConfigFileReader {
 		return 30;		
 	}
 	
-	public String getApplicationUrl() {
-		String url = properties.getProperty("url");
+	public String getWordPressApplicationUrl() {
+		String url = properties.getProperty("wordpressurl");
+		if(url != null) return url;
+		else throw new RuntimeException("Application Url not specified in the Configuration.properties file for the Key:url");
+	}
+	
+	public String getAPApplicationUrl() {
+		String url = properties.getProperty("automationstoreurl");
 		if(url != null) return url;
 		else throw new RuntimeException("Application Url not specified in the Configuration.properties file for the Key:url");
 	}

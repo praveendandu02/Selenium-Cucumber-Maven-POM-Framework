@@ -53,13 +53,15 @@ public class WebDriverManager {
 		
 		if(FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize()) 
 			driver.manage().window().maximize();
-		    driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);
 		return driver;
 	}
 
 	private WebDriver createRemoteDriver() throws MalformedURLException{
 		DesiredCapabilities caps = DesiredCapabilities.chrome();
 		caps.setCapability("platform", "Windows 10");
+		caps.setCapability("version", "latest");
+		caps.setCapability("platform", "macOS 10.13");
 		caps.setCapability("version", "latest");
 		driver = new RemoteWebDriver(new java.net.URL(URL), caps);
 		if(FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize()) 
