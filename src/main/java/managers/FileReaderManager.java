@@ -1,6 +1,7 @@
 package managers;
 
 import dataproviders.ConfigFileReader;
+import dataproviders.ExcelDataReader;
 import dataproviders.JsonDataReader;
 
 public class FileReaderManager {
@@ -8,6 +9,7 @@ public class FileReaderManager {
 	private static FileReaderManager fileReaderManager = new FileReaderManager();
 	private static ConfigFileReader configFileReader;
 	private static JsonDataReader jsonDataReader;
+	private static ExcelDataReader excelDataReader;
 	
 	private FileReaderManager() {
 	}
@@ -23,4 +25,8 @@ public class FileReaderManager {
 	 public JsonDataReader getJsonReader(){
 		 return (jsonDataReader == null) ? jsonDataReader = new JsonDataReader() : jsonDataReader;
 	}
+	 
+	 public ExcelDataReader getExcelReader(){
+		 return(excelDataReader == null) ? excelDataReader = new ExcelDataReader() : excelDataReader;
+	 }
 }

@@ -33,7 +33,13 @@ public class LoginSteps {
 		Customer customer = FileReaderManager.getInstance().getJsonReader().getCustomerByName(customerName);
 	    loginPage.loginOperation(customer);
 	}
-
+	
+	@When("^I input username and password with excel row \"([^\"]*)\" dataset$")
+	public void i_input_username_and_password_with_excel_row_dataset(int rowIndex) throws Throwable {
+	    Customer customer = FileReaderManager.getInstance().getExcelReader().readExcel(rowIndex);
+	    loginPage.loginOperation(customer);
+	}
+	
 	@When("^I click on login continue button$")
 	public void i_click_on_login_continue_button() throws Throwable {
 		loginPage.clickLoginButton();
