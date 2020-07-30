@@ -1,57 +1,121 @@
 package dataproviders;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.FileOutputStream;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import managers.FileReaderManager;
 import testDataTypes.Customer;
 
 public class ExcelDataReader {
+	private static XSSFSheet ExcelWSheet;
 	
-private final String customerFilePath = FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "TestData.xlsx";
-private final String sheetName = "LoginPage";	
-public Customer readExcel(int rowIndex) throws IOException{
+	private static XSSFWorkbook ExcelWBook;
+	
+	private static XSSFCell Cell;
+	
+	private static XSSFRow Row;
+	
+	static Customer customer;
+	
+	private static final String customerFilePath = FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "TestData.xlsx";
+	
+	private static final String sheetName = "LoginPage";
+	
+	//This method is set to the file path and to open the excel file, pass excel path and 
+	//sheet name as arguments to this method
+	public void setExcelFile() throws Exception{
 		
-		//Create an object of File  class to open xlsx file
-		
-		File file = new File(customerFilePath);
-		
-		//Create an object of FileInputStream class to read Excel file
-		
-		FileInputStream inputStream = new FileInputStream(file);
-		
-		Workbook wb = new XSSFWorkbook(inputStream);
-		
-		//Read sheet inside the workbook by its name
-		
-		Sheet sheet = wb.getSheet(sheetName);
-		
-		//Find number of rows in excel file
-		
-		//int rowCount = sheet.getLastRowNum() - sheet.getFirstRowNum();
-		
-		
-		Row row = sheet.getRow(rowIndex);
-		
-		
-		Customer customer = new Customer();
-		
-		customer.setUserName(row.getCell(0).getStringCellValue());
-		
-		customer.setPassword(row.getCell(1).getStringCellValue());
-		
-		return customer;
-		
+		try {
+			// Open the excel file
 			
+			FileInputStream excelFile = new FileInputStream(customerFilePath);
+			
+			//Access the required test data sheet
+			
+			ExcelWBook = new XSSFWorkbook(excelFile);
+			
+			ExcelWSheet = ExcelWBook.getSheet(sheetName);
+			
+			} catch (Exception e) {
+				
+			throw(e);
 		}
 	}
 	
+	//This method is to read the test data from the excel cell, 
+	//in this we are passing parametres as Row num and Col num
+	public Customer getExcelData(int rowNum)
+	{
+		try {
+			
+            FileInputStream excelFile = new FileInputStream(customerFilePath);
+			
+			//Access the required test data sheet
+			
+			ExcelWBook = new XSSFWorkbook(excelFile);
+			
+			ExcelWSheet = ExcelWBook.getSheet(sheetName);
+			XSSFRow row = ExcelWSheet.getRow(rowNum);
+			
+			//Cell = ExcelWSheet.getRow(rowNum).getCell(colNum);
+			
+			//String cellData = Cell.getStringCellValue();
+			
+		    customer = new Customer();
+			
+			customer.setUserName(row.getCell(1).getStringCellValue());
+			
+			customer.setPassword(row.getCell(2).getStringCellValue());
+			
+			return customer;
+			
+		} catch (Exception e) {
+			
+            return customer;
+		}
+	}
+	
+	//This method is to write in the excel cell, row num and col num are the parameters
+	public static void setCellData(String result, int rowNum, int colNum) throws Exception{
+		try{
+			 
+	           Row  = ExcelWSheet.getRow(rowNum);
+	 
+	// Cell = Row.getCell(colNum, Row.RETURN_BLANK_AS_NULL);
+	 
+	 if (Cell == null) {
+	 
+	 Cell = Row.createCell(colNum);
+	 
+	 Cell.setCellValue(result);
+	 
+	 } else {
+	 
+	 Cell.setCellValue(result);
+	 
+	 }
+	 
+	          // Constant variables Test Data path and Test Data file name
+	 
+	           FileOutputStream fileOut = new FileOutputStream(customerFilePath);
+	 
+	           ExcelWBook.write(fileOut);
+	 
+	           fileOut.flush();
+	 
+	 fileOut.close();
+	 
+	 }catch(Exception e){
+	 
+	 throw (e);
+	 
+	 }
 
+	}
 
+}
